@@ -1,35 +1,32 @@
 import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
-import User from "./UserModel.js";
+import Pegawai from "./LapasiModels/PegawaiModels.js";
 
 const { DataTypes } = Sequelize;
 
 const HakAkses = db.define(
-  "hakAkses",
+  "HakAkses",
   {
-    User: {
+    id_pegawai :{
       type: DataTypes.INTEGER,
     },
     lapasi: {
-      type: DataTypes.BOOLEN,
+      type: DataTypes.BOOLEAN,
     },
     pantai_disa: {
-      type: DataTypes.BOOLEN,
+      type: DataTypes.BOOLEAN,
     },
     aksesahu: {
-      type: DataTypes.BOOLEN,
+      type: DataTypes.BOOLEAN,
     },
     saria: {
-      type: DataTypes.BOOLEN,
+      type: DataTypes.BOOLEAN,
     },
     paludi: {
-      type: DataTypes.BOOLEN,
+      type: DataTypes.BOOLEAN,
     },
     sahu: {
-      type: DataTypes.BOOLEN,
-    },
-    layanan_pengaduan: {
-      type: DataTypes.BOOLEN,
+      type: DataTypes.BOOLEAN,
     },
   },
   {
@@ -37,7 +34,7 @@ const HakAkses = db.define(
   }
 );
 
-HakAkses.hasMany(User)
-User.belongsTo(HakAkses, {foreignKey : "User"});
+Pegawai.hasMany(HakAkses)
+HakAkses.belongsTo(Pegawai, {foreignKey : "id_pegawai"});
 
 export default HakAkses

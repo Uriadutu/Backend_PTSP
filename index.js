@@ -8,6 +8,7 @@ import fileupload from "express-fileupload";
 //auth
 import AuthRoute from "./routes/AuthRoute.js"
 import UserRoute from "./routes/UserRoute.js"
+import HakAksesRoute from "./routes/HakAksesRoute.js"
 //all
 import SuratMasukRoute from "./routes/SuratMasukRoute.js"
 import SuratKeluarRoute from "./routes/SuratKeluarRoute.js"
@@ -31,6 +32,15 @@ import KuaRoute from "./routes/SariaRoute/KuaRoute.js"
 //sahu
 import KecamatanRoute from "./routes/SahuRoute/KecamatanRoute.js"
 import TanahWakafRoute from "./routes/SahuRoute/TanahWakafRoute.js"
+
+//paludi
+import GerejaRoute from "./routes/PaludiRoute/GerejaRoute.js"
+import GuruPakRoute from "./routes/PaludiRoute/GuruPakRoute.js"
+import LembagaKristenRoute from "./routes/PaludiRoute/LembagaRouteKristen.js"
+import PenyuluRoute from "./routes/PaludiRoute/PenyuluRoute.js"
+import OrganisasiKristenRoute from "./routes/PaludiRoute/OrganisasiKristenRoute.js"
+import SekolahKristenRoute from "./routes/PaludiRoute/SekolahKristenRoute.js"
+import UmatKristenRoute from "./routes/PaludiRoute/UmatKristenRoute.js"
 
 dotenv.config();
 const app = express();
@@ -74,6 +84,7 @@ app.use(express.json());
 //auth
 app.use(AuthRoute);
 app.use(UserRoute);
+app.use(HakAksesRoute);
 
 // lapasi
 app.use(SatkerRoute);
@@ -98,6 +109,15 @@ app.use(KuaRoute);
 //sahu
 app.use(KecamatanRoute);
 app.use(TanahWakafRoute);
+//paludi 
+app.use(GerejaRoute);
+app.use(GuruPakRoute);
+app.use(LembagaKristenRoute);
+app.use(OrganisasiKristenRoute);
+app.use(PenyuluRoute);
+app.use(SekolahKristenRoute);
+app.use(UmatKristenRoute);
+
 
 
 
