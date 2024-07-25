@@ -1,11 +1,19 @@
 import express from "express"
-import { getAllGuruPak, getGuruPakById, createGuruPak, updateGuruPak, deleteGuruPak } from "../../controllers/Paludi/GuruPak.js"
+import {
+  getAllGuruPak,
+  getGuruPakById,
+  createGuruPak,
+  updateGuruPak,
+  deleteGuruPak,
+  getGuruPakBySekolah,
+} from "../../controllers/Paludi/GuruPak.js";
 
 
 const Route = express.Router();
 
 Route.get("/gurupak", getAllGuruPak);
 Route.get("/gurupak/:id", getGuruPakById);
+Route.get("/gurupak/sekolah/:id", getGuruPakBySekolah);
 Route.post("/gurupak", createGuruPak);
 Route.patch("/gurupak/:id", updateGuruPak);
 Route.delete("/gurupak/:id", deleteGuruPak);

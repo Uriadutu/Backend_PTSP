@@ -20,6 +20,16 @@ export const getGuruPakById = async (req, res) => {
   }
 };
 
+export const getGuruPakBySekolah = async (req, res) => {
+  try {
+    const guruPak = await GuruPak.findOne({ where: { id_sekolah: req.params.id } });
+    if (!guruPak) return res.status(404).json({ msg: "GuruPak not found" });
+    res.status(200).json(guruPak);
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
+
 // Create GuruPak
 export const createGuruPak = async (req, res) => {
   const {
