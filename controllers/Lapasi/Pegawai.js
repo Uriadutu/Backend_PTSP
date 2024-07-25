@@ -1,3 +1,4 @@
+import HakAkses from "../../models/HakAksesModel.js";
 import Pegawai from "../../models/LapasiModels/PegawaiModels.js";
 
 export const getPegawai = async (req, res) => {
@@ -15,6 +16,26 @@ export const getPegawaiById = async (req, res) => {
       where: {
         id: req.params.id,
       },
+      attributes: [
+        "id",
+        "UUID",
+        "NIP",
+        "nama_pegawai",
+        "jenis_pegawai",
+        "pangkat_gol",
+        "jabatan",
+        "tmt_terakhir",
+        "tmt_pengangkatan",
+        "tmt_pensiun",
+        "pend_terakhir",
+        "jurusan",
+        "tahun_lulus",
+        "jenis_kelamin",
+        "temp_lahir",
+        "tgl_lahir",
+        "agama",
+        "satuan_kerja",
+      ],
     });
     res.status(200).json(pegawai);
   } catch (error) {
@@ -43,7 +64,7 @@ export const createPegawai = async (req, res) => {
   } = req.body;
 
   try {
-    await Pegawai.create({
+    const pegawai = await Pegawai.create({
       NIP: NIP,
       jenis_pegawai: jenis_pegawai,
       nama_pegawai: nama_pegawai,
@@ -61,6 +82,11 @@ export const createPegawai = async (req, res) => {
       agama: agama,
       satuan_kerja: satuan_kerja,
     });
+
+    await HakAkses.create({
+      id_pegawai: pegawai.id,
+    });
+
     res.status(201).json({ msg: "Pegawai ditambahkan" });
   } catch (error) {
     res.status(400).json({ msg: error.message });
@@ -97,15 +123,31 @@ export const updatePegawai = async (req, res) => {
     res.status(400).json({ msg: error.message });
   }
 };
-
 export const deletePegawai = async (req, res) => {
   try {
-    await Pegawai.destroy({
+    const pegawai = await Pegawai.findOne({
       where: {
         id: req.params.id,
       },
     });
-    res.status(200).json({ msg: "Pegawai dihapus" });
+
+    if (!pegawai) {
+      return res.status(404).json({ msg: "Pegawai tidak ditemukan" });
+    }
+
+    const hakAkses = await HakAkses.findOne({
+      where: {
+        id_pegawai: pegawai.id,
+      },
+    });
+
+    if (hakAkses) {
+      await hakAkses.destroy();
+    }
+
+    await pegawai.destroy();
+
+    res.status(200).json({ msg: "Pegawai dan hak akses dihapus" });
   } catch (error) {
     res.status(400).json({ msg: error.message });
   }
