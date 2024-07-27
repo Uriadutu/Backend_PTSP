@@ -9,10 +9,10 @@ import {
 
 const router = express.Router();
 
-router.get("/organisasi", getAllOrganisasi);
-router.get("/organisasi/:id", getOrganisasiById);
-router.post("/organisasi", createOrganisasi);
-router.patch("/organisasi/:id", updateOrganisasi);
-router.delete("/organisasi/:id", deleteOrganisasi);
+router.get("/organisasi/kristen", getAllOrganisasi);
+router.get("/organisasi/kristen/:id", getOrganisasiById);
+router.post("/organisasi/kristen", createOrganisasi);
+router.patch("/organisasi/kristen/:id", updateOrganisasi);
+router.delete("/organisasi/kristen/:id", deleteOrganisasi);
 
 export default router;

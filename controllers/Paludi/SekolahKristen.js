@@ -13,9 +13,21 @@ export const getSekolahKristens = async (req, res) => {
 // Get SekolahKristen by ID
 export const getSekolahKristenById = async (req, res) => {
   try {
-    const sekolahKristen = await SekolahKristen.findByPk(req.params.id);
+    const sekolahKristen = await SekolahKristen.findOne({ where : { id: req.params.id}});
     if (!sekolahKristen) return res.status(404).json({ message: "SekolahKristen not found" });
     res.json(sekolahKristen);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+export const getSekolahKristenByStatus = async (req, res) => {
+  try {
+    const response = await SekolahKristen.findAll({
+      where : {
+        status_sekolah : req.params.status
+      }
+    });
+    res.status(200).json(response);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -28,6 +40,7 @@ export const createSekolahKristen = async (req, res) => {
     res.status(201).json(sekolahKristen);
   } catch (error) {
     res.status(400).json({ message: error.message });
+    console.log(error);
   }
 };
 

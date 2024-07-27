@@ -3,6 +3,7 @@ import {
   getSekolahKristens,
   getSekolahKristenById,
   createSekolahKristen,
+  getSekolahKristenByStatus,
   updateSekolahKristen,
   deleteSekolahKristen,
 } from "../../controllers/Paludi/SekolahKristen.js";
@@ -11,6 +12,7 @@ const router = express.Router();
 
 router.get("/sekolah-kristen", getSekolahKristens);
 router.get("/sekolah-kristen/:id", getSekolahKristenById);
+router.get("/sekolah-kristen/status/:status", getSekolahKristenByStatus);
 router.post("/sekolah-kristen", createSekolahKristen);
 router.patch("/sekolah-kristen/:id", updateSekolahKristen);
 router.delete("/sekolah-kristen/:id", deleteSekolahKristen);
