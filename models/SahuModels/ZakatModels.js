@@ -1,14 +1,16 @@
 import db from "../../config/Database.js";
 
 import Sequelize from "sequelize";
-const {DataTypes} = Sequelize;
+import Kecamatan from "./KecamatanModels.js";
+const { DataTypes } = Sequelize;
 
 const Zakat = db.define("Zakat", {
-  nama_kecamatan: {
-    type: DataTypes.STRING,
+  id_kecamatan: {
+    type: DataTypes.INTEGER,
     allowNull: false,
-    validate: {
-      notEmpty: true,
+    references: {
+      model: Kecamatan,
+      key: "id",
     },
   },
   kategori: {
@@ -25,19 +27,60 @@ const Zakat = db.define("Zakat", {
       notEmpty: true,
     },
   },
-  jumlah : {
+  jumlah_sumber: {
     type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-        },
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
   },
-  jenis : {
+  jenis: {
     type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-        },
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
   },
-  
+  beras: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
+  },
+  uang: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
+  },
+  nominal_uang: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
+  },
+  sedekah: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
+  },
+  jumlah_zakat: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
+  },
+}, {
+  freezeTableName : true
 });
+
+Kecamatan.hasMany(Zakat, { foreignKey: "id_kecamatan" });
+Zakat.belongsTo(Kecamatan, { foreignKey: "id_kecamatan" });
+
+export default Zakat;

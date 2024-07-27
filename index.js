@@ -32,6 +32,7 @@ import KuaRoute from "./routes/SariaRoute/KuaRoute.js"
 //sahu
 import KecamatanRoute from "./routes/SahuRoute/KecamatanRoute.js"
 import TanahWakafRoute from "./routes/SahuRoute/TanahWakafRoute.js"
+import ZakatRoute from "./routes/SahuRoute/ZakatRoute.js"
 
 //paludi
 import GerejaRoute from "./routes/PaludiRoute/GerejaRoute.js"
@@ -109,6 +110,8 @@ app.use(KuaRoute);
 //sahu
 app.use(KecamatanRoute);
 app.use(TanahWakafRoute);
+app.use(ZakatRoute);
+
 //paludi 
 app.use(GerejaRoute);
 app.use(GuruPakRoute);

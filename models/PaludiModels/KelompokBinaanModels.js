@@ -1,7 +1,6 @@
 import db from "../../config/Database.js";
 import { Sequelize } from "sequelize";
 import Penyulu from "./PenyuluModels.js";
-// import Penyulu from "./Penyulu.js"; // Adjust the path as needed
 
 const { DataTypes } = Sequelize;
 
