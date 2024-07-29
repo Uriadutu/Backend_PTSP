@@ -33,6 +33,19 @@ export const getSekolahKristenByStatus = async (req, res) => {
   }
 };
 
+export const getJumlahSekolah = async (req, res) => {
+  try {
+    const response = await SekolahKristen.findAll({
+      where: {
+        jenjang_sekolah: req.params.sekolah,
+      },
+    });
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(404).json({ msg: "Data sekolah tidak ditemukan" });
+  }
+};
+
 // Create new SekolahKristen
 export const createSekolahKristen = async (req, res) => {
   try {
