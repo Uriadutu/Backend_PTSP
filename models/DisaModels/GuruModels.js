@@ -10,8 +10,9 @@ const Guru = db.define(
     id_sekolah: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      validate: {
-        notEmpty: true,
+      references: {
+        model: Sekolah,
+        key: "id",
       },
     },
     NIP: {
@@ -137,10 +138,9 @@ const Guru = db.define(
   {
     freezeTableName: true,
   }
-
 );
 
-Sekolah.hasMany(Guru)
+Sekolah.hasMany(Guru, {foreignKey : "id_sekolah"})
 Guru.belongsTo(Sekolah, {foreignKey : "id_sekolah"})
 
 export default Guru;

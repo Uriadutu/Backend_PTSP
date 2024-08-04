@@ -9,6 +9,14 @@ const GuruPak = db.define(
     id_sekolah: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: SekolahKristen,
+        key: "id",
+      },
+    },
+    jenjang: {
+      type: DataTypes.STRING,
+      allowNull: false,
       validate: {
         notEmpty: true,
       },
@@ -127,11 +135,11 @@ const GuruPak = db.define(
     },
   },
   {
-    freezeTableName: true,
+    freezeTableName: true, 
   }
 );
 
-SekolahKristen.hasMany(GuruPak);
+SekolahKristen.hasMany(GuruPak, { foreignKey: "id_sekolah" });
 GuruPak.belongsTo(SekolahKristen, { foreignKey: "id_sekolah" });
 
 export default GuruPak;

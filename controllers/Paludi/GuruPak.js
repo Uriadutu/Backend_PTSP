@@ -32,11 +32,21 @@ export const getGuruPakBySekolah = async (req, res) => {
     res.status(500).json({ msg: error.message });
   }
 };
+export const getGuruPakByJenjang = async (req, res) => {
+  try {
+    const guruPak = await GuruPak.findAll({ where: { jenjang: req.params.jenjang } });
+    if (!guruPak) return res.status(404).json({ msg: "GuruPak not found" });
+    res.status(200).json(guruPak);
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
 
 // Create GuruPak
 export const createGuruPak = async (req, res) => {
   const {
     id_sekolah,
+    jenjang,
     status_pegawai,
     kategori_guru,
     jenis_guru,
@@ -57,6 +67,7 @@ export const createGuruPak = async (req, res) => {
   try {
     await GuruPak.create({
       id_sekolah,
+      jenjang,
       status_pegawai,
       kategori_guru,
       jenis_guru,
@@ -90,6 +101,7 @@ export const updateGuruPak = async (req, res) => {
     await GuruPak.update(
       {
         id_sekolah : req.body.id_sekolah,
+        jenjang : req.body.jenjang,
         status_pegawai : req.body.status_pegawai,
         kategori_guru : req.body.kategori_guru,
         jenis_guru : req.body.jenis_guru,

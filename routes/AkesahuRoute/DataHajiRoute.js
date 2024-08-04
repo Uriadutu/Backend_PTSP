@@ -7,6 +7,7 @@ import {
   getHajibyPorsi,
   berangkatHaji,
   getJumlahHajiBerangkat,
+  getHajibyTanggal,
 } from "../../controllers/Akesahu/DataHaji.js";
 import express from "express"
 const router = express.Router();
@@ -14,6 +15,7 @@ const router = express.Router();
 router.get("/haji", getHaji);
 router.get("/haji/:id", getHajibyId);
 router.get("/haji/porsi/:porsi", getHajibyPorsi);
+router.get("/haji/tanggal/:year", getHajibyTanggal);
 router.patch("/haji/berangkat/:id", berangkatHaji);
 router.get("/haji/:berangkat/", getJumlahHajiBerangkat);
 router.post("/haji", createHaji);

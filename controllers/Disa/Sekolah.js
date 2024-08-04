@@ -1,4 +1,8 @@
+import DokumenSekolah from "../../models/DisaModels/DokumenSekolahModels.js";
 import Sekolah from "../../models/DisaModels/SekolahModels.js";
+import fs from "fs";
+import path from "path";
+
 
 export const getSekolah = async (req, res) => {
    try {
@@ -60,6 +64,7 @@ export const createSekolah = async (req, res) => {
     tahun_berdiri,
     status_akreditasi,
     status_bangunan,
+    sk_izin,
     req_pendirian,
     jumlah_rombel,
     nama_kepsek,
@@ -80,6 +85,7 @@ export const createSekolah = async (req, res) => {
       tahun_berdiri: tahun_berdiri,
       status_akreditasi: status_akreditasi,
       status_bangunan: status_bangunan,
+      sk_izin : sk_izin,
       req_pendirian: req_pendirian,
       jumlah_rombel: jumlah_rombel,
       nama_kepsek: nama_kepsek,
@@ -99,19 +105,52 @@ export const updateSekolah = async (req, res) => {
 
 export const deleteSekolah = async (req, res) => {
   try {
-    const sekolah = await Sekolah.findOne({
-      where: {
-        id: req.params.id,
-      },
+    const dokumen = await DokumenSekolah.findAll({
+      where: { id_sekolah: req.params.id },
     });
-    if (!sekolah) {
 
-        res.status(404).json({msg : "Data tidak ditemukan"});
+    const sekolah = await Sekolah.findOne({
+      where: { id: req.params.id },
+    });
+
+    if (!sekolah)
+      return res.status(404).json({ message: "sekolah not found" });
+
+    if (dokumen.length) {
+      dokumen.forEach((doc) => {
+        const skIzin = path.resolve(
+          `./public/dokumensekolah/disa/${doc.sk_izin_file}`
+        );
+        const noReg = path.resolve(
+          `./public/dokumensekolah/disa/${doc.no_reg_file}`
+        );
+        const Akreditasi = path.resolve(
+          `./public/dokumensekolah/disa/${doc.akreditasi_file}`
+        );
+        const Nss = path.resolve(
+          `./public/dokumensekolah/disa/${doc.nss_file}`
+        );
+        const sertiTanah = path.resolve(
+          `./public/dokumensekolah/disa/${doc.serti_tanah_file}`
+        );
+
+        if (fs.existsSync(skIzin)) fs.unlinkSync(skIzin);
+        if (fs.existsSync(noReg)) fs.unlinkSync(noReg);
+        if (fs.existsSync(Akreditasi)) fs.unlinkSync(Akreditasi);
+        if (fs.existsSync(Nss)) fs.unlinkSync(Nss);
+        if (fs.existsSync(sertiTanah)) fs.unlinkSync(sertiTanah);
+      });
+
+      await DokumenSekolah.destroy({
+        where: { id_sekolah: req.params.id },
+      });
     }
 
     await sekolah.destroy();
-    res.status(200).json({msg : "Data dihapus"});
+
+    res.json({ message: "sekolah deleted" });
   } catch (error) {
-    res.status(404).json({ msg: "Data sekolah tidak dapat dihapus" });
+    res.status(500).json({ message: error.message });
+    console.error("Error deleting sekolah:", error);
   }
 };

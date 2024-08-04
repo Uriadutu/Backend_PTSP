@@ -77,6 +77,13 @@ const Sekolah = db.define(
         notEmpty: true,
       },
     },
+    sk_izin : {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
     req_pendirian: {
       type: DataTypes.STRING,
       allowNull: false,

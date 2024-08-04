@@ -18,6 +18,7 @@ import JabatanRoute from "./routes/LapasiRoute/JabatanRoute.js"
 import PegawaiRoute from "./routes/LapasiRoute/PegawaiRoute.js"
 //pantai disa
 import SekolahRoute from "./routes/DisaRoute/SekolahRoute.js"
+import DokumenSekolahRoute from "./routes/DisaRoute/DokumenSekolahRoute.js"
 import GuruRoute from "./routes/DisaRoute/GuruRoute.js"
 import SiswaRoute from "./routes/DisaRoute/SiswaRoute.js"
 //akesahu
@@ -42,6 +43,8 @@ import PenyuluRoute from "./routes/PaludiRoute/PenyuluRoute.js"
 import OrganisasiKristenRoute from "./routes/PaludiRoute/OrganisasiKristenRoute.js"
 import SekolahKristenRoute from "./routes/PaludiRoute/SekolahKristenRoute.js"
 import UmatKristenRoute from "./routes/PaludiRoute/UmatKristenRoute.js"
+import DokumenSekolahKristenRoute from "./routes/PaludiRoute/DokumenSekolahKristenRoute.js"
+
 
 dotenv.config();
 const app = express();
@@ -96,6 +99,7 @@ app.use(SuratKeluarRoute);
 // disa
 app.use(SuratKeluarRoute);
 app.use(SekolahRoute);
+app.use(DokumenSekolahRoute);
 app.use(GuruRoute);
 app.use(SiswaRoute);
 //akesahu
@@ -120,6 +124,7 @@ app.use(OrganisasiKristenRoute);
 app.use(PenyuluRoute);
 app.use(SekolahKristenRoute);
 app.use(UmatKristenRoute);
+app.use(DokumenSekolahKristenRoute);
 
 
 

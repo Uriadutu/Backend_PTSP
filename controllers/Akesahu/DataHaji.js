@@ -22,6 +22,20 @@ export const getHajibyId = async (req, res) => {
     res.status(404).json({ msg: "Data Haji tidak ditemukan" });
   }
 };
+export const getHajibyTanggal = async (req, res) => {
+  try {
+    const response = await Haji.findAll({
+      where: {
+        tgl_berangkat: req.params.tgl,
+      },
+    });
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(404).json({ msg: "Data Haji tidak ditemukan" });
+  }
+};
+
+
 export const getJumlahHajiBerangkat = async (req, res) => {
   try {
     const response = await Haji.findOne({
