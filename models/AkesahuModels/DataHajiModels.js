@@ -90,6 +90,13 @@ const Haji = db.define(
         notEmpty: true,
       },
     },
+    tahun_berangkat: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
   },
   {
     freezeTableName: true,
