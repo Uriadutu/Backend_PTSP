@@ -1,4 +1,5 @@
 import Haji from "../../models/AkesahuModels/DataHajiModels.js";
+import { Sequelize } from "sequelize";
 // Mendapatkan semua data Haji
 export const getHaji = async (req, res) => {
   try {
@@ -35,49 +36,46 @@ export const getHajibyTanggal = async (req, res) => {
     res.status(404).json({ msg: "Data Haji tidak ditemukan" });
   }
 };
-
 export const getHajiStatusByYear = async (req, res) => {
   try {
-    // Query untuk mendapatkan semua data Haji
-    const hajis = await Haji.findAll();
+    const result = await Haji.findAll({
+      attributes: [
+        "tahun_berangkat",
+        [
+          Sequelize.fn(
+            "SUM",
+            Sequelize.literal(
+              'CASE WHEN status_keberangkatan = "Berangkat" THEN 1 ELSE 0 END'
+            )
+          ),
+          "jumlah_berangkat",
+        ],
+        [
+          Sequelize.fn(
+            "SUM",
+            Sequelize.literal(
+              'CASE WHEN status_keberangkatan = "Batal Berangkat" THEN 1 ELSE 0 END'
+            )
+          ),
+          "jumlah_batal",
+        ],
+      ],
+      group: "tahun_berangkat",
+      order: ["tahun_berangkat"],
+    });
 
-    // Mengumpulkan data berdasarkan tahun dan status keberangkatan
-    const data = hajis.reduce((acc, haji) => {
-      // Mendapatkan tahun dari tgl_berangkat
-      const year =
-        haji.tahun_berangkat !== "-" ? parseInt(haji.tahun_berangkat) : null;
-
-      // Jika tgl_berangkat atau tahun_berangkat tidak valid, skip data ini
-      if (!year) return acc;
-
-      // Inisialisasi data untuk tahun tersebut jika belum ada
-      if (!acc[year]) {
-        acc[year] = { year, berangkat: 0, batal_berangkat: 0 };
-      }
-
-      // Update jumlah berangkat atau batal berangkat berdasarkan status_keberangkatan
-      if (haji.status_keberangkatan === "Berangkat") {
-        acc[year].berangkat += 1;
-      } else if (haji.status_keberangkatan === "Batal Berangkat") {
-        acc[year].batal_berangkat += 1;
-      }
-
-      return acc;
-    }, {});
-
-    // Mengonversi hasil menjadi array
-    const result = Object.values(data);
-
-    res.status(200).json(result);
+    res.json(result);
   } catch (error) {
-    res.status(500).json({ msg: error.message });
+    console.error("Error fetching data:", error);
+    res.status(500).send("Server error");
   }
 };
 
 
+
 export const getJumlahHajiBerangkat = async (req, res) => {
   try {
-    const response = await Haji.findOne({
+    const response = await Haji.findAll({
       where: {
         status_keberangkatan: req.params.berangkat,
       },
@@ -194,7 +192,6 @@ export const updateHaji = async (req, res) => {
     res.status(400).json({ msg: "Data Haji gagal diupdate" });
   }
 };
-
 export const berangkatHaji = async (req, res) => {
   const { tgl_berangkat, status_keberangkatan } = req.body;
   try {
@@ -203,20 +200,26 @@ export const berangkatHaji = async (req, res) => {
         nomor_porsi: req.params.id,
       },
     });
+
     if (!berangkat) {
       return res.status(404).json({ msg: "Data Haji tidak ditemukan" });
     }
 
-    let tahunBerangkat = null;
+    // Update tgl_berangkat menjadi tanggal hari ini jika status_keberangkatan adalah "Batal Berangkat"
     let updatedTglBerangkat = tgl_berangkat;
+    let tahunBerangkat = null;
 
     if (status_keberangkatan === "Batal Berangkat") {
-      updatedTglBerangkat = "-";
-      tahunBerangkat = "-";
+      updatedTglBerangkat = new Date().toISOString().split("T")[0]; // Format YYYY-MM-DD
+      tahunBerangkat = updatedTglBerangkat.slice(0, 4); // Ambil tahun dari tanggal
     } else {
-      tahunBerangkat = tgl_berangkat ? tgl_berangkat.slice(0, 4) : null;
+      tahunBerangkat =
+        tgl_berangkat && tgl_berangkat !== "-"
+          ? tgl_berangkat.slice(0, 4)
+          : null;
     }
 
+    // Update data haji
     await berangkat.update({
       status_keberangkatan,
       tgl_berangkat: updatedTglBerangkat,
