@@ -23,6 +23,18 @@ export const getTanahWakafById = async (req, res) => {
     res.status(500).json({ msg: error.message });
   }
 };
+export const getTanahWakafByJenisTanah = async (req, res) => {
+  try {
+    const tanahWakaf = await TanahWakaf.findAll({
+      where: { jenis_tanah: req.params.tanah },
+    });
+    if (!tanahWakaf)
+      return res.status(404).json({ msg: "Tanah Wakaf not found" });
+    res.status(200).json(tanahWakaf);
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
 
 // Create Tanah Wakaf
 export const createTanahWakaf = async (req, res) => {

@@ -33,6 +33,21 @@ export const getZakatById = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+export const getZakatByKategori = async (req, res) => {
+  try {
+    const zakat = await Zakat.findAll({
+      where: {
+        kategori: req.params.kategori,
+      },
+    });
+    if (!zakat) {
+      return res.status(404).json({ error: "Zakat not found" });
+    }
+    res.json(zakat);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
 // Create new Zakat entry
 export const createZakat = async (req, res) => {
