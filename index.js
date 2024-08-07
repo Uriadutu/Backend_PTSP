@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import db from "./config/Database.js";
 import SequelizeStore from "connect-session-sequelize";
 import fileupload from "express-fileupload";
+//pengaduan
+import LayananPengaduanRoute from "./routes/LayananPengaduanRoute.js"
 //auth
 import AuthRoute from "./routes/AuthRoute.js"
 import UserRoute from "./routes/UserRoute.js"
@@ -84,6 +86,8 @@ app.use(
 app.use(fileupload());
 app.use(express.static("public")); 
 app.use(express.json());
+//layanan
+app.use(LayananPengaduanRoute);
 
 //auth
 app.use(AuthRoute);
