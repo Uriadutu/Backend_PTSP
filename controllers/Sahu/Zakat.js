@@ -63,6 +63,7 @@ export const createZakat = async (req, res) => {
       nominal_uang,
       sedekah,
       jumlah_zakat,
+      tahun_zakat
     } = req.body;
     const zakat = await Zakat.create({
       id_kecamatan,
@@ -75,6 +76,7 @@ export const createZakat = async (req, res) => {
       nominal_uang,
       sedekah,
       jumlah_zakat,
+      tahun_zakat
     });
     res.status(201).json(zakat);
   } catch (error) {
@@ -94,6 +96,7 @@ export const updateZakat = async (req, res) => {
       jenis,
       sedekah,
       jumlah_zakat,
+      tahun_zakat
     } = req.body;
     const zakat = await Zakat.findByPk(req.params.id);
     if (!zakat) {
@@ -106,6 +109,7 @@ export const updateZakat = async (req, res) => {
     zakat.jenis = jenis;
     zakat.sedekah = sedekah;
     zakat.jumlah_zakat = jumlah_zakat;
+    zakat.tahun_zakat = tahun_zakat;
     await zakat.save();
     res.json(zakat);
   } catch (error) {

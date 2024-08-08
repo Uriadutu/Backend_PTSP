@@ -25,6 +25,7 @@ import GuruRoute from "./routes/DisaRoute/GuruRoute.js"
 import SiswaRoute from "./routes/DisaRoute/SiswaRoute.js"
 //akesahu
 import HajiRoute from "./routes/AkesahuRoute/DataHajiRoute.js"
+import PeriodeRoute from "./routes/AkesahuRoute/PeriodeRoute.js"
 //saria
 import UmatIslamRoute from "./routes/SariaRoute/UmatIslamRoute.js"
 import RumahIbadahIslamRoute from "./routes/SariaRoute/RumahIbadahIslamRoute.js"
@@ -46,6 +47,8 @@ import OrganisasiKristenRoute from "./routes/PaludiRoute/OrganisasiKristenRoute.
 import SekolahKristenRoute from "./routes/PaludiRoute/SekolahKristenRoute.js"
 import UmatKristenRoute from "./routes/PaludiRoute/UmatKristenRoute.js"
 import DokumenSekolahKristenRoute from "./routes/PaludiRoute/DokumenSekolahKristenRoute.js"
+import SekolahMingguRoute from "./routes/PaludiRoute/SekolahMingguRoute.js"
+import PelayanGerejaRoute from "./routes/PaludiRoute/PelayanGerejaRoute.js"
 
 
 dotenv.config();
@@ -108,6 +111,7 @@ app.use(GuruRoute);
 app.use(SiswaRoute);
 //akesahu
 app.use(HajiRoute);
+app.use(PeriodeRoute);
 //saria
 app.use(UmatIslamRoute);
 app.use(RumahIbadahIslamRoute);
@@ -129,7 +133,8 @@ app.use(PenyuluRoute);
 app.use(SekolahKristenRoute);
 app.use(UmatKristenRoute);
 app.use(DokumenSekolahKristenRoute);
-
+app.use(SekolahMingguRoute);
+app.use(PelayanGerejaRoute);
 
 
 

@@ -4,10 +4,10 @@ import Pegawai from "../models/LapasiModels/PegawaiModels.js";
 export const getPengaduan = async (req, res) => {
   try {
     const response = await Pengaduan.findAll({
-      include: {
+      include: [{
         model: Pegawai,
         attributes: ['nama_pegawai', "NIP"]
-      }
+      }]
     });
     res.status(200).json(response);
   } catch (error) {
@@ -19,12 +19,15 @@ export const getPengaduanById = async (req, res) => {
   try {
     const response = await Pengaduan.findOne({
       where: {
-        id: req.params.id
+        id: req.params.id,
       },
-      include: {
-        model: Pegawai,
-        attributes: ['nama_pegawai', "NIP"]
-      }
+      include: [
+        {
+          model: Pegawai,
+          attributes: ["nama_pegawai", "NIP"],
+        },
+       
+      ],
     });
     res.status(200).json(response);
   } catch (error) {
@@ -34,12 +37,17 @@ export const getPengaduanById = async (req, res) => {
 
 export const createPengaduan = async (req, res) => {
   try {
-    const {jenisPengaduan,deskripsiPengaduan} = req.body;
+    const {judul_laporan, tgl_kejadian, lokasi_kejadian, nama_satker, kategori_laporan, deskripsiPengaduan, sifat_laporan} = req.body;
     await Pengaduan.create(
         {
             id_pegawai : req.userId,
-            jenisPengaduan,
-            deskripsiPengaduan
+            judul_laporan,
+            tgl_kejadian,
+            lokasi_kejadian,
+            nama_satker,
+            kategori_laporan,
+            deskripsiPengaduan,
+            sifat_laporan,
         }
     );
     res.status(201).json({ message: "Pengaduan berhasil ditambahkan" });

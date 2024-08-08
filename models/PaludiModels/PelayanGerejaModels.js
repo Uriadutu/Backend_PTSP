@@ -1,71 +1,68 @@
+import db from "../../config/Database.js";
 import { Sequelize } from "sequelize";
-import db from "../config/Database.js";
-import Pegawai from "./LapasiModels/PegawaiModels.js";
+import Gereja from "./GerejaModel.js";
 
 const { DataTypes } = Sequelize;
 
-const Pengaduan = db.define(
-  "pengaduan",
+const PelayanGereja = db.define(
+  "PelayanGereja",
   {
-    id_pegawai: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: Pegawai,
-        key: "id",
-      },
-    },
-    judul_laporan: {
+    nama_gereja: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,
       },
     },
-    tgl_kejadian: {
+    nama_pelayan: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,
       },
     },
-    lokasi_kejadian: {
+    jenis_kelamin: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,
       },
     },
-    
-    kategori_laporan: {
+    pendidikan_terakhir: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,
       },
     },
-    
-    deskripsiPengaduan: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
-    sifat_laporan : {
+    jabatan_pelayan: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,
       },
-    }
+    },
+    jabatan_bphj: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    jabatan_bidang: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
   },
   {
     freezeTableName: true,
   }
 );
 
-Pegawai.hasMany(Pengaduan, { foreignKey: "id_pegawai" });
-Pengaduan.belongsTo(Pegawai, { foreignKey: "id_pegawai" });
+PelayanGereja.hasMany(Gereja, { foreignKey: "gerejaId" });
+Gereja.belongsTo(PelayanGereja, { foreignKey: "gerejaId" });
 
-export default Pengaduan;
+export default PelayanGereja;
