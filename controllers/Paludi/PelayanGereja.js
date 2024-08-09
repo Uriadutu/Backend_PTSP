@@ -37,6 +37,7 @@ export const createPelayanGereja = async (req, res) => {
     jabatan_pelayan,
     jabatan_bphj,
     jabatan_bidang,
+    gerejaId
   } = req.body;
   try {
     await PelayanGereja.create({
@@ -47,10 +48,13 @@ export const createPelayanGereja = async (req, res) => {
       jabatan_pelayan,
       jabatan_bphj,
       jabatan_bidang,
+      gerejaId
     });
     res.status(201).json({ message: "Data berhasil ditambahkan" });
   } catch (error) {
     res.status(500).json({ message: error.message });
+    console.log(error);
+    
   }
 };
 

@@ -33,6 +33,8 @@ import OrganisasiMasyarakatRoute from "./routes/SariaRoute/OrganisasiMasyarakatR
 import MajelisRoute from "./routes/SariaRoute/MajelisRoute.js"
 import LembagaKeagamaanRoute from "./routes/SariaRoute/LembagaKeagamaanRoute.js"
 import KuaRoute from "./routes/SariaRoute/KuaRoute.js"
+import TpqRoute from "./routes/SariaRoute/TpqRoute.js"
+import PenyuluhIslamRoute from "./routes/SariaRoute/PenyuluIslamRoute.js"
 //sahu
 import KecamatanRoute from "./routes/SahuRoute/KecamatanRoute.js"
 import TanahWakafRoute from "./routes/SahuRoute/TanahWakafRoute.js"
@@ -119,6 +121,8 @@ app.use(OrganisasiMasyarakatRoute);
 app.use(MajelisRoute);
 app.use(LembagaKeagamaanRoute);
 app.use(KuaRoute);
+app.use(TpqRoute);
+app.use(PenyuluhIslamRoute);
 //sahu
 app.use(KecamatanRoute);
 app.use(TanahWakafRoute);

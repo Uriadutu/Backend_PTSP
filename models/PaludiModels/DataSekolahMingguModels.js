@@ -28,13 +28,21 @@ const SekolahMinggu = db.define(
         notEmpty: true,
       },
     },
+    gerejaId : {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references : {
+        model : Gereja,
+        key : "id"
+      }
+    }
   },
   {
     freezeTableName: true,
   }
 );
 
-SekolahMinggu.hasMany(Gereja, {foreignKey : "gerejaId"})
-Gereja.belongsTo(SekolahMinggu, {foreignKey : "gerejaId"})
+Gereja.hasOne(SekolahMinggu, {foreignKey : "gerejaId"})
+SekolahMinggu.belongsTo(Gereja, {foreignKey : "gerejaId"})
 
 export default SekolahMinggu

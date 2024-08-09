@@ -7,6 +7,8 @@ export const getAllGereja = async (req, res) => {
     res.status(200).json(gereja);
   } catch (error) {
     res.status(500).json({ msg: error.message });
+    console.log(error);
+    
   }
 };
 

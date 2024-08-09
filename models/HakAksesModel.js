@@ -28,6 +28,9 @@ const HakAkses = db.define(
     sahu: {
       type: DataTypes.BOOLEAN,
     },
+    sidika: {
+      type: DataTypes.BOOLEAN,
+    },
   },
   {
     freezeTableName: true,

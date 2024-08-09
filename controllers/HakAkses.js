@@ -26,6 +26,7 @@ export const createHakAkses = async (req, res) => {
       akesahu: false,
       sahu: false,
       paludi: false,
+      sidika: false,
     });
     res.status(200).json({ msg: "Berhasil" });
   } catch (error) {
@@ -35,7 +36,7 @@ export const createHakAkses = async (req, res) => {
 
 export const updateHakAkses = async (req, res) => {
   const { id } = req.params;
-  const { password, lapasi, pantai_disa, aksesahu, saria, paludi, sahu } =
+  const { password, lapasi, pantai_disa, aksesahu, saria, paludi, sahu, sidika } =
     req.body;
 
   try {
@@ -71,6 +72,7 @@ export const updateHakAkses = async (req, res) => {
         saria,
         paludi,
         sahu,
+        sidika
       },
       { where: { id_pegawai: id } }
     );

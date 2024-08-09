@@ -56,13 +56,21 @@ const PelayanGereja = db.define(
         notEmpty: true,
       },
     },
+    gerejaId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: Gereja,
+        key: "id",
+      },
+    },
   },
   {
     freezeTableName: true,
   }
 );
 
-PelayanGereja.hasMany(Gereja, { foreignKey: "gerejaId" });
-Gereja.belongsTo(PelayanGereja, { foreignKey: "gerejaId" });
+Gereja.hasOne(PelayanGereja, { foreignKey: "gerejaId" });
+PelayanGereja.belongsTo(Gereja, { foreignKey: "gerejaId" });
 
 export default PelayanGereja;

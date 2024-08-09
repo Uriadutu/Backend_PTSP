@@ -4,7 +4,9 @@ import Gereja from "../../models/PaludiModels/GerejaModel.js";
 export const getSekolahMinggu = async (req, res) => {
   try {
     const sekolahMinggu = await SekolahMinggu.findAll({
-      include: [Gereja],
+      include: [{
+        model: Gereja
+      }],
     });
     res.json(sekolahMinggu);
   } catch (error) {
@@ -18,7 +20,9 @@ export const getSekolahMingguById = async (req, res) => {
       where: {
         id: req.params.id,
       },
-      include: [Gereja],
+      include: [{
+        model : Gereja
+      }],
     });
     if (!sekolahMinggu) return res.status(404).json({ message: "Data tidak ditemukan" });
     res.json(sekolahMinggu);
@@ -28,16 +32,19 @@ export const getSekolahMingguById = async (req, res) => {
 };
 
 export const createSekolahMinggu = async (req, res) => {
-  const { nama_gereja, nama_pengasuh, jumlah_anak } = req.body;
+  const { nama_gereja, nama_pengasuh, jumlah_anak, gerejaId } = req.body;
   try {
     await SekolahMinggu.create({
       nama_gereja,
       nama_pengasuh,
       jumlah_anak,
+      gerejaId
     });
     res.status(201).json({ message: "Data berhasil ditambahkan" });
   } catch (error) {
     res.status(500).json({ message: error.message });
+    console.log(error);
+    
   }
 };
 
