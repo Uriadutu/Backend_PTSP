@@ -52,6 +52,8 @@ import DokumenSekolahKristenRoute from "./routes/PaludiRoute/DokumenSekolahKrist
 import SekolahMingguRoute from "./routes/PaludiRoute/SekolahMingguRoute.js"
 import PelayanGerejaRoute from "./routes/PaludiRoute/PelayanGerejaRoute.js"
 
+//sidika
+import PetaKepengawasanRoute from "./routes/SidikaRoute/PetaKepengawasanRoute.js"
 
 dotenv.config();
 const app = express();
@@ -140,6 +142,8 @@ app.use(DokumenSekolahKristenRoute);
 app.use(SekolahMingguRoute);
 app.use(PelayanGerejaRoute);
 
+//sidika
+app.use(PetaKepengawasanRoute);
 
 
 app.listen(process.env.APP_PORT, () => {

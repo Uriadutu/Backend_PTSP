@@ -65,6 +65,7 @@ export const createPegawai = async (req, res) => {
 
   try {
     const pegawai = await Pegawai.create({
+      id: NIP,
       NIP: NIP,
       jenis_pegawai: jenis_pegawai,
       nama_pegawai: nama_pegawai,
