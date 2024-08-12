@@ -37,24 +37,41 @@ export const getPetaPengawasById = async (req, res) => {
 export const createPetaPengawas = async (req, res) => {
   const { id_pegawai, jenis_pengawas, wilayah_mengawas } = req.body;
   try {
+    // Cek apakah sudah ada pengawas dengan id_pegawai yang sama
+    const existingPengawas = await PetaPengawas.findOne({
+      where: { id_pegawai },
+    });
+
+    if (existingPengawas) {
+      return res
+        .status(400)
+        .json({ msg: `Pengawas dengan NIP ${id_pegawai} sudah ada.` });
+    }
+
+    // Buat pengawas baru
     const newPengawas = await PetaPengawas.create({
+      id : id_pegawai,
       id_pegawai,
       jenis_pengawas,
     });
+
+    // Tambahkan wilayah pengawas
     for (const wilayahs of wilayah_mengawas) {
       await WilayaMengawas.create({
         id_pengawas: newPengawas.id,
         nama_wilayah: wilayahs,
       });
     }
+
     res
       .status(201)
-      .json({ message: "Pengawas dan nama wilayah berhasil ditambahkan." });
+      .json({ msg: "Pengawas dan nama wilayah berhasil ditambahkan." });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ msg: `Pegawai ${id_pegawai} Tidak Ada` });
     console.log(error);
   }
 };
+
 
 export const updatePetaPengawas = async (req, res) => {
   try {

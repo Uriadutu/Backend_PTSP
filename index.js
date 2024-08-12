@@ -35,6 +35,7 @@ import LembagaKeagamaanRoute from "./routes/SariaRoute/LembagaKeagamaanRoute.js"
 import KuaRoute from "./routes/SariaRoute/KuaRoute.js"
 import TpqRoute from "./routes/SariaRoute/TpqRoute.js"
 import PenyuluhIslamRoute from "./routes/SariaRoute/PenyuluIslamRoute.js"
+import PenghuluRoute from "./routes/SariaRoute/PenghuluRoute.js"
 //sahu
 import KecamatanRoute from "./routes/SahuRoute/KecamatanRoute.js"
 import TanahWakafRoute from "./routes/SahuRoute/TanahWakafRoute.js"
@@ -54,6 +55,8 @@ import PelayanGerejaRoute from "./routes/PaludiRoute/PelayanGerejaRoute.js"
 
 //sidika
 import PetaKepengawasanRoute from "./routes/SidikaRoute/PetaKepengawasanRoute.js"
+import AkademikRoute from "./routes/SidikaRoute/AkademikRoute.js"
+import MenejerialRoute from "./routes/SidikaRoute/MenejerialRoute.js"
 
 dotenv.config();
 const app = express();
@@ -125,6 +128,7 @@ app.use(LembagaKeagamaanRoute);
 app.use(KuaRoute);
 app.use(TpqRoute);
 app.use(PenyuluhIslamRoute);
+app.use(PenghuluRoute);
 //sahu
 app.use(KecamatanRoute);
 app.use(TanahWakafRoute);
@@ -144,6 +148,8 @@ app.use(PelayanGerejaRoute);
 
 //sidika
 app.use(PetaKepengawasanRoute);
+app.use(AkademikRoute);
+app.use(MenejerialRoute);
 
 
 app.listen(process.env.APP_PORT, () => {
