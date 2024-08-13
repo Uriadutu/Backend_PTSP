@@ -51,6 +51,18 @@ export const getJumlahSekolah = async (req, res) => {
     res.status(404).json({ msg: "Data sekolah tidak ditemukan" });
   }
 };
+export const getSekolahByNama = async (req, res) => {
+  try {
+    const response = await Sekolah.findOne({
+      where: {
+        nama_sekolah: req.params.nama,
+      },
+    });
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(404).json({ msg: "Data sekolah tidak ditemukan" });
+  }
+};
 
 
 export const createSekolah = async (req, res) => {

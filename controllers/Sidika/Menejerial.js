@@ -1,5 +1,4 @@
-import Sekolah from "../../models/DisaModels/SekolahModels.js";
-import SekolahKristen from "../../models/PaludiModels/SekolahKristenModel.js";
+import Pegawai from "../../models/LapasiModels/PegawaiModels.js";
 import Menejerial from "../../models/SidikaModels/PendampingMenejerialModels.js";
 import PetaPengawas from "../../models/SidikaModels/PetaKepengawasanModel.js";
 
@@ -11,10 +10,7 @@ export const getMenejerial = async (req, res) => {
           model: PetaPengawas,
         },
         {
-          model: SekolahKristen,
-        },
-        {
-          model: Sekolah,
+          model: Pegawai,
         },
       ],
     });
@@ -32,13 +28,10 @@ export const getMenejerialbyId = async (req, res) => {
       },
       include: [
         {
-          model: PetaKepengawasan,
+          model: PetaPengawas,
         },
         {
-          model: SekolahKristen,
-        },
-        {
-          model: Sekolah,
+          model: Pegawai,
         },
       ],
     });
@@ -51,17 +44,18 @@ export const getMenejerialbyId = async (req, res) => {
 export const createMenejerial = async (req, res) => {
   const {
     id_pegawai,
-    id_sekolah_paludi,
-    id_sekolah_disa,
+    nama_sekolah,
+    nama_kepsek,
     status_sertifikat,
     status_pegawai,
     keterangan,
   } = req.body;
   try {
     await Menejerial.create({
+      id_pegawai_asli : id_pegawai,
       id_pegawai,
-      id_sekolah_paludi,
-      id_sekolah_disa,
+      nama_sekolah,
+      nama_kepsek,
       status_sertifikat,
       status_pegawai,
       keterangan,

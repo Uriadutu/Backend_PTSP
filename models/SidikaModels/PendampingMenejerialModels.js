@@ -1,8 +1,7 @@
 import { Sequelize } from "sequelize";
 import db from "../../config/Database.js";
-import SekolahKristen from "../PaludiModels/SekolahKristenModel.js";
-import Sekolah from "../DisaModels/SekolahModels.js";
 import PetaPengawas from "./PetaKepengawasanModel.js";
+import Pegawai from "../LapasiModels/PegawaiModels.js";
 
 const { DataTypes } = Sequelize;
 
@@ -15,20 +14,26 @@ const Menejerial = db.define("menejerial", {
       key: "id_pegawai",
     },
   },
-  id_sekolah_paludi: {
+  id_pegawai_asli: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: SekolahKristen,
+      model: Pegawai,
       key: "id",
     },
   },
-  id_sekolah_disa: {
-    type: DataTypes.INTEGER,
+  nama_sekolah : {
+    type: DataTypes.STRING,
     allowNull: false,
-    references: {
-      model: Sekolah,
-      key: "id",
+    validate: {
+      notEmpty: true,
+    },
+  },
+  nama_kepsek : {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
     },
   },
   status_sertifikat: {
@@ -59,10 +64,7 @@ const Menejerial = db.define("menejerial", {
 PetaPengawas.hasMany(Menejerial, { foreignKey: "id_pegawai" });
 Menejerial.belongsTo(PetaPengawas, { foreignKey: "id_pegawai" });
 
-SekolahKristen.hasMany(Menejerial, { foreignKey: "id_sekolah_paludi" });
-Menejerial.belongsTo(SekolahKristen, { foreignKey: "id_sekolah_paludi" });
-
-Sekolah.hasMany(Menejerial, { foreignKey: "id_sekolah_disa" });
-Menejerial.belongsTo(Sekolah, { foreignKey: "id_sekolah_disa" });
+Pegawai.hasMany(Menejerial, { foreignKey: "id_pegawai_asli" });
+Menejerial.belongsTo(Pegawai, { foreignKey: "id_pegawai_asli" });
 
 export default Menejerial

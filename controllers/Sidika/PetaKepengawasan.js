@@ -34,6 +34,37 @@ export const getPetaPengawasById = async (req, res) => {
   }
 };
 
+export const getWilayahbyIdPengawas = async (req, res) => {
+  try {
+    const petaPengawas = await WilayaMengawas.findAll({
+      where: { id_pengawas: req.params.id },
+      include: [
+        { model: PetaPengawas },
+      ],
+    });
+    res.json(petaPengawas);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getPetaPengawasByPegawai = async (req, res) => {
+  try {
+    const petaPengawas = await PetaPengawas.findOne({
+      where: { id_pegawai: req.params.id },
+      include: [
+        { model: Pegawai },
+        {
+          model: WilayaMengawas,
+        },
+      ],
+    });
+    res.json(petaPengawas);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const createPetaPengawas = async (req, res) => {
   const { id_pegawai, jenis_pengawas, wilayah_mengawas } = req.body;
   try {

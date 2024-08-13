@@ -23,6 +23,16 @@ export const getSekolahKristenById = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const getSekolahKristenByNama = async (req, res) => {
+  try {
+    const sekolahKristen = await SekolahKristen.findOne({ where : { nama_sekolah: req.params.nama}});
+    if (!sekolahKristen) return res.status(404).json({ message: "SekolahKristen not found" });
+    res.json(sekolahKristen);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 export const getSekolahKristenByStatus = async (req, res) => {
   try {
     const response = await SekolahKristen.findAll({
