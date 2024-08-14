@@ -1,6 +1,7 @@
 import db from "../../config/Database.js";
 import { Sequelize } from "sequelize";
 import PetaPengawas from "./PetaKepengawasanModel.js";
+import Pegawai from "../LapasiModels/PegawaiModels.js";
 
 const {DataTypes} = Sequelize;
 
@@ -11,6 +12,14 @@ const Akademik = db.define("akademik", {
     references: {
       model: PetaPengawas,
       key: "id_pegawai",
+    },
+  },
+  id_pegawai_asli: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: Pegawai,
+      key: "id",
     },
   },
   nama_sekolah: {
@@ -48,5 +57,10 @@ const Akademik = db.define("akademik", {
 
 PetaPengawas.hasMany(Akademik, { foreignKey: "id_pegawai" });
 Akademik.belongsTo(PetaPengawas, { foreignKey: "id_pegawai" });
+
+
+Pegawai.hasMany(Akademik, { foreignKey: "id_pegawai_asli" });
+Akademik.belongsTo(Pegawai, { foreignKey: "id_pegawai_asli" });
+
 
 export default Akademik

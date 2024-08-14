@@ -80,7 +80,7 @@ export const deleteMenejerial = async (req, res) => {
         .status(404)
         .json({ msg: `tidak ditemukan.` });
     }
-    await menejerial();
+    await menejerial.destroy();
 
     res.json("berhasil");
   } catch (error) {

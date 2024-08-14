@@ -1,8 +1,13 @@
+import Pegawai from "../../models/LapasiModels/PegawaiModels.js";
 import Akademik from "../../models/SidikaModels/PendampinganAkademikModels.js";
 
 export const getAkademik = async (req, res) => {
   try {
-    const akademik = await Akademik.findAll();
+    const akademik = await Akademik.findAll({
+      include : [{
+        model : Pegawai
+      }]
+    });
     res.json(akademik);
   } catch (error) {
     console.log(error);
@@ -14,6 +19,10 @@ export const getAkademikbyId = async (req, res) => {
       where: {
         id: re1.params.id,
       },
+      include : [{
+        model : Pegawai
+      }]
+    
     });
     res.json(akademik);
   } catch (error) {
@@ -30,18 +39,15 @@ export const createAkademik = async (req, res) => {
     keterangan,
   } = req.body;
   try {
-    const existingPengawas = await Akademik.findOne({
+    await Akademik.findOne({
       where: { id_pegawai },
     });
 
-    if (existingPengawas) {
-      return res
-        .status(400)
-        .json({ msg: `Pengawas dengan NIP ${id_pegawai} sudah ada.` });
-    }
+    
 
     await Akademik.create({
       id_pegawai,
+      id_pegawai_asli : id_pegawai,
       nama_sekolah,
       status_akademik,
       jumlah_peserta,
