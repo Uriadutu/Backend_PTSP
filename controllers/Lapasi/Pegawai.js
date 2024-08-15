@@ -62,8 +62,20 @@ export const createPegawai = async (req, res) => {
     agama,
     satuan_kerja,
   } = req.body;
+  
 
   try {
+     const exgPegawai = await Pegawai.findOne({
+      where: { NIP },
+    });
+
+     if (exgPegawai) {
+      return res
+        .status(400)
+        .json({ msg: `NIP sudah ada.` });
+    }
+
+
     const pegawai = await Pegawai.create({
       id: NIP,
       NIP: NIP,
@@ -84,14 +96,17 @@ export const createPegawai = async (req, res) => {
       satuan_kerja: satuan_kerja,
     });
 
+    
     await HakAkses.create({
       id_pegawai: pegawai.id,
     });
 
+
+
     res.status(201).json({ msg: "Pegawai ditambahkan" });
   } catch (error) {
-    res.status(400).json({ msg: error.message });
-    console.log(error.message);
+    res.status(400).json({ msg: "Gagal" });
+    console.log(error);
   }
 };
 
@@ -138,7 +153,6 @@ export const updatePegawai = async (req, res) => {
     console.log(error);
   }
 };
-
 
 export const deletePegawai = async (req, res) => {
   try {
