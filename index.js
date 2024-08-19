@@ -14,6 +14,7 @@ import HakAksesRoute from "./routes/HakAksesRoute.js"
 //all
 import SuratMasukRoute from "./routes/SuratMasukRoute.js"
 import SuratKeluarRoute from "./routes/SuratKeluarRoute.js"
+import NamaSekolahSidikaRoute from "./routes/NamaSekolahRouteSidika.js"
 //lapasi
 import SatkerRoute from "./routes/LapasiRoute/SatkerRoute.js";
 import JabatanRoute from "./routes/LapasiRoute/JabatanRoute.js"
@@ -103,13 +104,14 @@ app.use(LayananPengaduanRoute);
 app.use(AuthRoute);
 app.use(UserRoute);
 app.use(HakAksesRoute);
-
+//all
+app.use(SuratMasukRoute);
+app.use(SuratKeluarRoute);
+app.use(NamaSekolahSidikaRoute);
 // lapasi
 app.use(SatkerRoute);
 app.use(JabatanRoute);
 app.use(PegawaiRoute);
-app.use(SuratMasukRoute);
-app.use(SuratKeluarRoute);
 // disa
 app.use(SuratKeluarRoute);
 app.use(SekolahRoute);

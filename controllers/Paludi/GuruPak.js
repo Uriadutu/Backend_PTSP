@@ -15,7 +15,10 @@ export const getAllGuruPak = async (req, res) => {
 // Get GuruPak by ID
 export const getGuruPakById = async (req, res) => {
   try {
-    const guruPak = await GuruPak.findOne({ where: { id: req.params.id } });
+    const guruPak = await GuruPak.findOne({
+      where: { id: req.params.id },
+      include: [{model : SekolahKristen}],
+    });
     if (!guruPak) return res.status(404).json({ msg: "GuruPak not found" });
     res.status(200).json(guruPak);
   } catch (error) {
@@ -25,7 +28,9 @@ export const getGuruPakById = async (req, res) => {
 
 export const getGuruPakBySekolah = async (req, res) => {
   try {
-    const guruPak = await GuruPak.findAll({ where: { id_sekolah: req.params.id } });
+    const guruPak = await GuruPak.findAll({
+      where: { id_sekolah: req.params.id },
+    });
     if (!guruPak) return res.status(404).json({ msg: "GuruPak not found" });
     res.status(200).json(guruPak);
   } catch (error) {
@@ -34,7 +39,9 @@ export const getGuruPakBySekolah = async (req, res) => {
 };
 export const getGuruPakByJenjang = async (req, res) => {
   try {
-    const guruPak = await GuruPak.findAll({ where: { jenjang: req.params.jenjang } });
+    const guruPak = await GuruPak.findAll({
+      where: { jenjang: req.params.jenjang },
+    });
     if (!guruPak) return res.status(404).json({ msg: "GuruPak not found" });
     res.status(200).json(guruPak);
   } catch (error) {
@@ -94,30 +101,29 @@ export const createGuruPak = async (req, res) => {
 
 // Update GuruPak
 export const updateGuruPak = async (req, res) => {
-  
   try {
     const guruPak = await GuruPak.findOne({ where: { id: req.params.id } });
     if (!guruPak) return res.status(404).json({ msg: "GuruPak not found" });
     await GuruPak.update(
       {
-        id_sekolah : req.body.id_sekolah,
-        jenjang : req.body.jenjang,
-        status_pegawai : req.body.status_pegawai,
-        kategori_guru : req.body.kategori_guru,
-        jenis_guru : req.body.jenis_guru,
-        nama_guru : req.body.nama_guru,
-        nip_guru : req.body.nip_guru,
-        pangkat_gol : req.body.pangkat_gol,
-        jabatan : req.body.jabatan,
-        tgl_mulai_kerja : req.body.tgl_mulai_kerja,
-        tempat_lahir : req.body.tempat_lahir,
-        tanggal_lahir : req.body.tanggal_lahir,
-        jenis_kelamin : req.body.jenis_kelamin,
-        pendidikan_terakhir : req.body.pendidikan_terakhir,
-        jurusan : req.body.jurusan,
-        tahun_lulus : req.body.tahun_lulus,
-        no_telp : req.body.no_telp,
-        email : req.body.email,
+        id_sekolah: req.body.id_sekolah,
+        jenjang: req.body.jenjang,
+        status_pegawai: req.body.status_pegawai,
+        kategori_guru: req.body.kategori_guru,
+        jenis_guru: req.body.jenis_guru,
+        nama_guru: req.body.nama_guru,
+        nip_guru: req.body.nip_guru,
+        pangkat_gol: req.body.pangkat_gol,
+        jabatan: req.body.jabatan,
+        tgl_mulai_kerja: req.body.tgl_mulai_kerja,
+        tempat_lahir: req.body.tempat_lahir,
+        tanggal_lahir: req.body.tanggal_lahir,
+        jenis_kelamin: req.body.jenis_kelamin,
+        pendidikan_terakhir: req.body.pendidikan_terakhir,
+        jurusan: req.body.jurusan,
+        tahun_lulus: req.body.tahun_lulus,
+        no_telp: req.body.no_telp,
+        email: req.body.email,
       },
       { where: { id: req.params.id } }
     );

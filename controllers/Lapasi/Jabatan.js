@@ -60,7 +60,10 @@ export const deleteJabatan = async (req, res) => {
         }
       });
       res.status(200).json({ msg: "Dihapus" });
+      console.log("sukses");
     } catch (error) {
       res.status(500).json({ msg: "Gagal" });
+      console.log(error);
+      
     }
 }
