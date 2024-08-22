@@ -4,6 +4,19 @@ import { Sequelize, UUID } from "sequelize";
 const { DataTypes } = Sequelize;
 
 const Pegawai = db.define("Pegawai", {
+  id : {
+    type : DataTypes.INTEGER,
+    primaryKey : true,
+    autoIncrement : true,
+    validate : {
+      min :{
+        args : [1]
+      },
+      max : {
+        args : [100]
+      }
+    }
+  },
   UUID: {
     type: DataTypes.STRING,
     defaultValue: UUID,

@@ -99,7 +99,18 @@ export const createGuru = async (req, res) => {
 
 export const updateGuru = async (req, res) => {
   try {
-  } catch (error) {}
+     const guru = await Guru.findOne({
+       where: {
+         id: req.params.id,
+       },
+     });
+     await guru.update(req.body);
+
+     res.status(200).json({msg : "sukses"});
+  } catch (error) {
+    console.log(error);
+    
+  }
 };
 
 export const deleteGuru = async (req, res) => {
