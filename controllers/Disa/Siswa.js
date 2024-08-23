@@ -71,12 +71,9 @@ export const createSiswa = async (req, res) => {
       tempat_lahir,
       tanggal_lahir,
       agama,
+      kelas,
       nama_ayah,
-      pendidikan_ayah,
-      pekerjaan_ayah,
       nama_ibu,
-      pendidikan_ibu,
-      pekerjaan_ibu,
       alamat,
     } = req.body;
     const response = await Siswa.create({
@@ -90,12 +87,9 @@ export const createSiswa = async (req, res) => {
       tempat_lahir,
       tanggal_lahir,
       agama,
+      kelas,
       nama_ayah,
-      pendidikan_ayah,
-      pekerjaan_ayah,
       nama_ibu,
-      pendidikan_ibu,
-      pekerjaan_ibu,
       alamat
     });
     res.status(201).json(response);
@@ -123,12 +117,9 @@ export const updateSiswa = async (req, res) => {
         tempat_lahir,
         tanggal_lahir,
         agama,
+        kelas,
         nama_ayah,
-        pendidikan_ayah,
-        pekerjaan_ayah,
         nama_ibu,
-        pendidikan_ibu,
-        pekerjaan_ibu,
         alamat
       } = req.body;
       await siswa.update({
@@ -142,12 +133,13 @@ export const updateSiswa = async (req, res) => {
         tempat_lahir,
         tanggal_lahir,
         agama,
+        kelas,
         nama_ayah,
-        pendidikan_ayah,
-        pekerjaan_ayah,
+
+
         nama_ibu,
-        pendidikan_ibu,
-        pekerjaan_ibu,
+
+
         alamat
       });
       res.status(200).json(siswa);

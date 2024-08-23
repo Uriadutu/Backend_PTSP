@@ -114,6 +114,19 @@ export const updateGuru = async (req, res) => {
 };
 
 export const deleteGuru = async (req, res) => {
-  try {
-  } catch (error) {}
+ try {
+   const guru = await Guru.findOne({
+     where: {
+       id: req.params.id,
+     },
+   });
+   if (!guru) {
+     res.status(404).json({ msg: "Data Tidak DItemukan" });
+   }
+   await guru.destroy();
+   res.status(200).json({ msg: "sukses dihapus" });
+ } catch (error) {
+   res.status(500).json({ msg: "Gagal Menghapus" });
+ }
 };
+

@@ -1,55 +1,105 @@
-import {Sequelize} from "sequelize";
 import db from "../../config/Database.js";
+import { Sequelize } from "sequelize";
+import SekolahKristen from "./SekolahKristenModel.js";
 
-const {DataTypes} = Sequelize;
+const { DataTypes } = Sequelize;
 
-const Sekolah = db.define(
-  "Sekolah",
+const TenagaPendidikKristen = db.define(
+  "TenagaPendidikKristen",
   {
-    nama_sekolah: {
+    id_sekolah: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: SekolahKristen,
+        key: "id",
+      },
+    },
+    NIP: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,
       },
     },
-    status_sekolah: {
+    nama_tenaga: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,
       },
     },
-    s_sekolah: {
+    status_pegawai: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,
       },
     },
-    jenjang_sekolah: {
+    pangkat: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,
       },
     },
-    nss: {
+    jabatan: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,
       },
     },
-    npsn: {
+    tgl_mulai: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,
       },
     },
-
-    alamat: {
+    tempat_lahir: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    tanggal_lahir: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    jenis_kelamin: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    agama: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    pendidikan_terakhir: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    juruan: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    tahun_lulus: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
@@ -63,56 +113,7 @@ const Sekolah = db.define(
         notEmpty: true,
       },
     },
-    tahun_berdiri: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
-    status_akreditasi: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
-    status_bangunan: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
-    sk_izin : {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
-    req_pendirian: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
-    jumlah_rombel: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
-    nama_kepsek: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
-    nip_kepsek: {
+    email: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
@@ -125,5 +126,7 @@ const Sekolah = db.define(
   }
 );
 
+SekolahKristen.hasMany(TenagaPendidikKristen, { foreignKey: "id_sekolah" });
+TenagaPendidikKristen.belongsTo(SekolahKristen, { foreignKey: "id_sekolah" });
 
-export default Sekolah
+export default TenagaPendidikKristen;

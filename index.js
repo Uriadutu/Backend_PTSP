@@ -23,6 +23,7 @@ import PegawaiRoute from "./routes/LapasiRoute/PegawaiRoute.js"
 import SekolahRoute from "./routes/DisaRoute/SekolahRoute.js"
 import DokumenSekolahRoute from "./routes/DisaRoute/DokumenSekolahRoute.js"
 import GuruRoute from "./routes/DisaRoute/GuruRoute.js"
+import TenagaPendidikRoute from "./routes/DisaRoute/TenagaPendidikRoute.js"
 import SiswaRoute from "./routes/DisaRoute/SiswaRoute.js"
 //akesahu
 import HajiRoute from "./routes/AkesahuRoute/DataHajiRoute.js"
@@ -37,6 +38,9 @@ import KuaRoute from "./routes/SariaRoute/KuaRoute.js"
 import TpqRoute from "./routes/SariaRoute/TpqRoute.js"
 import PenyuluhIslamRoute from "./routes/SariaRoute/PenyuluIslamRoute.js"
 import PenghuluRoute from "./routes/SariaRoute/PenghuluRoute.js"
+import BulanTahunRoute from "./routes/SariaRoute/BulanTahunRoute.js"
+import NRRoute from "./routes/SariaRoute/NRRoute.js"
+import NRTahunanRoute from "./routes/SariaRoute/NRTahunanRoute.js"
 //sahu
 import KecamatanRoute from "./routes/SahuRoute/KecamatanRoute.js"
 import TanahWakafRoute from "./routes/SahuRoute/TanahWakafRoute.js"
@@ -53,6 +57,7 @@ import UmatKristenRoute from "./routes/PaludiRoute/UmatKristenRoute.js"
 import DokumenSekolahKristenRoute from "./routes/PaludiRoute/DokumenSekolahKristenRoute.js"
 import SekolahMingguRoute from "./routes/PaludiRoute/SekolahMingguRoute.js"
 import PelayanGerejaRoute from "./routes/PaludiRoute/PelayanGerejaRoute.js"
+import TenagaPendidikKristenRoute from "./routes/PaludiRoute/TenagaPendidikKristenRoute.js"
 
 //sidika
 import PetaKepengawasanRoute from "./routes/SidikaRoute/PetaKepengawasanRoute.js"
@@ -117,6 +122,7 @@ app.use(SuratKeluarRoute);
 app.use(SekolahRoute);
 app.use(DokumenSekolahRoute);
 app.use(GuruRoute);
+app.use(TenagaPendidikRoute);
 app.use(SiswaRoute);
 //akesahu
 app.use(HajiRoute);
@@ -131,6 +137,9 @@ app.use(KuaRoute);
 app.use(TpqRoute);
 app.use(PenyuluhIslamRoute);
 app.use(PenghuluRoute);
+app.use(BulanTahunRoute);
+app.use(NRRoute);
+app.use(NRTahunanRoute);
 //sahu
 app.use(KecamatanRoute);
 app.use(TanahWakafRoute);
@@ -147,6 +156,7 @@ app.use(UmatKristenRoute);
 app.use(DokumenSekolahKristenRoute);
 app.use(SekolahMingguRoute);
 app.use(PelayanGerejaRoute);
+app.use(TenagaPendidikKristenRoute);
 
 //sidika
 app.use(PetaKepengawasanRoute);

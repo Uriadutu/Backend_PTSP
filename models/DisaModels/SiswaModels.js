@@ -78,6 +78,13 @@ const Siswa = db.define(
         notEmpty: true,
       },
     },
+    kelas: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
     nama_ayah: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -85,35 +92,7 @@ const Siswa = db.define(
         notEmpty: true,
       },
     },
-    pendidikan_ayah: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
-    pekerjaan_ayah: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
     nama_ibu: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
-    pendidikan_ibu: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
-    pekerjaan_ibu: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
@@ -133,7 +112,7 @@ const Siswa = db.define(
   }
 );
 
-Sekolah.hasMany(Siswa, {foreignKey: "id_sekolah"})
-Siswa.belongsTo(Sekolah, {foreignKey :"id_sekolah"})
+Sekolah.hasMany(Siswa, { foreignKey: "id_sekolah" });
+Siswa.belongsTo(Sekolah, { foreignKey: "id_sekolah" });
 
 export default Siswa;
