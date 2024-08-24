@@ -7,6 +7,8 @@ export const createNikahRujuk = async (req, res) => {
     res.status(201).json({ message: "Data Berhasil Ditambahkan" });
   } catch (error) {
     res.status(400).json({ message: error.message });
+    console.log(error);
+    
   }
 };
 
@@ -26,6 +28,21 @@ export const getNikahRujukById = async (req, res) => {
     const response = await NikahRujuk.findOne({
       where: {
         id: req.params.id,
+      },
+    });
+    if (!response)
+      return res.status(404).json({ message: "Data Tidak Ditemukan" });
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getNikahRujukByNamaBulan = async (req, res) => {
+  try {
+    const response = await NikahRujuk.findAll({
+      where: {
+        namaBulan: req.params.bulan,
       },
     });
     if (!response)
