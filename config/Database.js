@@ -8,4 +8,5 @@ const db = new Sequelize("db_ptsp", "root", "", {
   dialect: "mysql",
 });
 
+
 export default db
